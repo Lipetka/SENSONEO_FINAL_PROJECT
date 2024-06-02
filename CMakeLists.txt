@@ -3,4 +3,11 @@ find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
 
 project(SENSONEO_FINAL_PROJECT)
 
-target_sources(app PRIVATE src/main.c)
+# manually add path to include or other used folders
+target_include_directories(app PRIVATE include)
+
+target_sources(app PRIVATE
+            src/main.c
+            src/sensoneo_gpio.c
+            src/sensoneo_timers.c
+            )
