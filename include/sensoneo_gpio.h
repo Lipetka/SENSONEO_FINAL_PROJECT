@@ -33,6 +33,8 @@ Use DT_ALIAS to get a node by its alias, there are other options such as DT_NODE
 // Get nodes of LEDS
 # define TOP_LEFT_LED_NODE          DT_ALIAS(led0)
 # define TOP_RIGHT_LED_NODE         DT_ALIAS(led1)
+# define BOTTOM_LEFT_LED_NODE          DT_ALIAS(led2)
+# define BOTTOM_RIGHT_LED_NODE         DT_ALIAS(led3)
 
 // Get nodes of BUTTONS
 # define TOP_LEFT_BUTTON_NODE       DT_ALIAS(btn0)
@@ -42,6 +44,7 @@ Use DT_ALIAS to get a node by its alias, there are other options such as DT_NODE
 
 void sensoneo_gpio_setup(void);
 void alternating_leds_timer_callback(void);
+void set_leds(uint8_t led_mask);
 
 
 #endif // GPIO_SETUP_H

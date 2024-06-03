@@ -15,6 +15,8 @@ I don't have an insight to these structures, I just use them as they are in the 
 // LEDS
 static const struct gpio_dt_spec top_left_led = GPIO_DT_SPEC_GET(TOP_LEFT_LED_NODE, gpios);
 static const struct gpio_dt_spec top_right_led = GPIO_DT_SPEC_GET(TOP_RIGHT_LED_NODE, gpios);
+static const struct gpio_dt_spec bottom_left_led = GPIO_DT_SPEC_GET(BOTTOM_LEFT_LED_NODE, gpios);
+static const struct gpio_dt_spec bottom_right_led = GPIO_DT_SPEC_GET(BOTTOM_RIGHT_LED_NODE, gpios);
 
 // BUTTONS
 static const struct gpio_dt_spec top_left_button = GPIO_DT_SPEC_GET(TOP_LEFT_BUTTON_NODE, gpios);
@@ -35,7 +37,7 @@ void sensoneo_gpio_setup(void){
     gpio_configurations();  // setup INPUT, OUTPUT
 
     // Tie the interrupt handlers to the buttons
-    // First we have to initiate the callback with target function and target pins (probably could be done with one traceback)
+    // First we have to initiate the callback with target function and target pins (probably could be done with one trace back)
 	gpio_init_callback(&top_left_button_callback, button_pressed_callback, BIT(top_left_button.pin));
 	gpio_init_callback(&top_right_button_callback, button_pressed_callback, BIT(top_right_button.pin));
     // assign the callback to the buttons
@@ -78,6 +80,8 @@ static void gpio_configurations(){
     // Configure the LED pins as output
     gpio_pin_configure_dt(&top_left_led, GPIO_OUTPUT);
     gpio_pin_configure_dt(&top_right_led, GPIO_OUTPUT);
+    gpio_pin_configure_dt(&bottom_left_led, GPIO_OUTPUT);
+    gpio_pin_configure_dt(&bottom_right_led, GPIO_OUTPUT);
 
     // BUTTONS
     // Configure the BUTTON pins as input
@@ -100,9 +104,13 @@ static void blink_leds(uint8_t num_of_blinks, uint8_t interval_ms){
     for(uint8_t i = 0; i < num_of_blinks; i++){
         gpio_pin_set_dt(&top_left_led, 1);
         gpio_pin_set_dt(&top_right_led, 1);
+        gpio_pin_set_dt(&bottom_left_led, 1);
+        gpio_pin_set_dt(&bottom_right_led, 1);
         k_msleep(interval_ms);
         gpio_pin_set_dt(&top_left_led, 0);
         gpio_pin_set_dt(&top_right_led, 0);
+        gpio_pin_set_dt(&bottom_left_led, 0);
+        gpio_pin_set_dt(&bottom_right_led, 0);
         k_msleep(interval_ms);
     }
     gpio_pin_set_dt(&top_left_led, 1);
@@ -140,4 +148,22 @@ static void button_pressed_callback(
     } else {
         button_held = false;
     }
+}
+
+
+
+/**
+ * Sets the state of LEDs based on the given LED mask.
+ *
+ * The leds are controlled by each bit in a uin8_t variable.
+ * Since first two leds are used by buttons, we will use the bottom two leds.
+ *
+ * @param led_mask The LED mask indicating which LEDs to turn on.
+ *                 Bit 0 controls the bottom right LED.
+ *                 Bit 1 controls the bottom left LED.
+ *
+ */
+void set_leds(uint8_t led_mask){
+    gpio_pin_set_dt(&bottom_right_led, (led_mask & 0x01));
+    gpio_pin_set_dt(&bottom_left_led, (led_mask & 0x02));
 }

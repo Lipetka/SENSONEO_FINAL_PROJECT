@@ -1,6 +1,9 @@
 {
     "files.associations": {
         "kernel.h": "c",
-        "devicetree.h": "c"
+        "devicetree.h": "c",
+        "device.h": "c",
+        "sensoneo_gpio.h": "c",
+        "smf.h": "c"
     }
 }
