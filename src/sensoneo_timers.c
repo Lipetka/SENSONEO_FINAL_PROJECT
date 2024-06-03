@@ -18,7 +18,7 @@ void sensoneo_timers_setup(void){
  * This must be called after init function
  */
 void sensoneo_run_timers(void){
-    k_timer_start(&alternating_leds_timer, K_MSEC(0), K_MSEC(alternating_leds_interval_ms)); // timer, initial delay, period
+    k_timer_start(&alternating_leds_timer, K_MSEC(500), K_MSEC(alternating_leds_interval_ms)); // timer, initial delay, period
     return;
 }
 
@@ -26,10 +26,10 @@ void sensoneo_run_timers(void){
  * @brief Increases the interval of the alternating LEDs timer.
  */
 void increase_alternating_leds_interval(void){
-    if(alternating_leds_interval_ms < 2000){
+    if(alternating_leds_interval_ms < 1000){
         alternating_leds_interval_ms += 100;
     }
-    k_timer_start(&alternating_leds_timer, K_MSEC(0), K_MSEC(alternating_leds_interval_ms)); // timer, initial delay, period
+    k_timer_start(&alternating_leds_timer, K_MSEC(500), K_MSEC(alternating_leds_interval_ms)); // timer, initial delay, period
     return;
 }
 
@@ -39,7 +39,7 @@ void increase_alternating_leds_interval(void){
 void decrease_alternating_leds_interval(void){
     if(alternating_leds_interval_ms > 100){
         alternating_leds_interval_ms -= 100;
-        k_timer_start(&alternating_leds_timer, K_MSEC(0), K_MSEC(alternating_leds_interval_ms)); // timer, initial delay, period
+        k_timer_start(&alternating_leds_timer, K_MSEC(500), K_MSEC(alternating_leds_interval_ms)); // timer, initial delay, period
     }
     return;
 }
