@@ -14,10 +14,13 @@ Task of project:
     - ~~Whole blinking task is ran in separate "thread"~~
 
 - Utilize state machine
+
     _State machine is one of my most favorite ways to code basically anything._
     - **LED 2** and **LED 3** will light up based on current state machine state
     - There will be 4 states represented by led lights (0,0)(1,0)(1,1)(0,1)
     - ~~Make the state machine run in separate "thread"~~
+
+- Utilize Bluetooth
 
 _More tasks will be thought out while learning tutorials and reading more docs._
 
