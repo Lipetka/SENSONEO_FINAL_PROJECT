@@ -4,6 +4,7 @@
         "devicetree.h": "c",
         "device.h": "c",
         "sensoneo_gpio.h": "c",
-        "smf.h": "c"
+        "smf.h": "c",
+        "printk.h": "c"
     }
 }

@@ -12,4 +12,5 @@ src/main.c
 src/sensoneo_gpio.c
 src/sensoneo_timers.c
 src/sensoneo_state_machine.c
+src/sensoneo_bluetooth.c
 )

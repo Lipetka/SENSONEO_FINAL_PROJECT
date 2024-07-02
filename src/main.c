@@ -11,8 +11,9 @@ Whole project contains sometimes more documentation and comments as needed.
 #include "sensoneo_gpio.h"
 #include "sensoneo_timers.h"
 #include "sensoneo_state_machine.h"
+#include "sensoneo_bluetooth.h"
 
-#define PRINT_DEBUG // Print debug messages, all debug messages are printed with printk in main loop
+//#define PRINT_DEBUG // Print debug messages, all debug messages are printed with printk in main loop
 #define SLEEP_TIME 250 // Sleep time in while loop
 
 
@@ -25,6 +26,9 @@ int main(void)
 
         // Initiate all tasks and timers, state machines, etc.
         sensoneo_run_timers(); // start all timers
+
+        // start bluetooth
+        sensoneo_initiate_bluetooth();
 
         while(true){
                 #ifdef PRINT_DEBUG

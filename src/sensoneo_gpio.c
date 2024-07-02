@@ -148,6 +148,7 @@ static void button_pressed_callback(
     } else {
         button_held = false;
     }
+    printk("Alternating leds period: %i\n", alternating_leds_interval_ms);
 }
 
 
